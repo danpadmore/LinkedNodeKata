@@ -7,9 +7,12 @@ namespace LinkedNodesKata
         public Guid Id { get; private set; }
         public string Name { get; set; }
 
-        public Node()
+        public Node(string name)
         {
+            if(string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+
             Id = Guid.NewGuid();
+            Name = name;
         }
     }
 }
