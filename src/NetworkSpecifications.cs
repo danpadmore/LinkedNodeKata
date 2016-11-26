@@ -47,6 +47,15 @@ namespace LinkedNodesKata
                 .Distinct();
         }
 
+        public Link GetLastLink(Guid startingLinkId, Link link)
+        {
+            var nextLink = _links.SingleOrDefault(l => l.Id != startingLinkId && l.FirstNode == link.SecondNode);
+            if (nextLink == null)
+                return link;
+
+            return GetLastLink(startingLinkId, nextLink);
+        }
+
         private IEnumerable<Node> GetAllReachableNodes(Guid startingLinkId, Link link)
         {
             if(link.FirstNode != null)
@@ -121,7 +130,10 @@ namespace LinkedNodesKata
         [Fact]
         public void ThenSecondNodeOfLastLinkShouldBeEqualToFirstNodeOfFirstLink()
         {
-            Assert.True(false, "//TODO");
+            var lastLink = GetLastLink(LinkX.Id, LinkX);
+
+            Assert.NotNull(lastLink);
+            Assert.Equal(lastLink.SecondNode, LinkX.FirstNode);
         }
     }
 }
