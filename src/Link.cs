@@ -12,10 +12,13 @@ namespace LinkedNodesKata
              get { return _firstNode; }
              set
              {
+if(value == null) throw new ArgumentNullException();
+
                  if(_secondNode == value)
                     throw new InvalidOperationException("FirstNode and SecondNode cannot be the same node");
 
                  _firstNode = value;
+                _firstNode.FirstLink = this;
              }
         }
 
@@ -29,6 +32,7 @@ namespace LinkedNodesKata
                     throw new InvalidOperationException("FirstNode and SecondNode cannot be the same node");
 
                 _secondNode = value;
+                _secondNode.SecondLink = this;
             }
         }
 
